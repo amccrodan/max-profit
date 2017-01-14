@@ -1,17 +1,22 @@
-// Brute Force
+// Brute Force Recursion
 
 function maxProfit(inputArr) {
-  return inputArr.reduce(function(a, element, index) {
-    var maxDiff = -1;
-    for (var i = index + 1; i <= inputArr.length; i++) {
-      var diff = inputArr[i] - element;
-      maxDiff = (diff > maxDiff) ? diff : maxDiff;
-    }
-    return Math.max(a, maxDiff);
-  }, -1);
+  if (inputArr.length === 1) {
+    return -1;
+  }
+
+  var diffArray = inputArr.slice(1).map(function(element){
+    return element - inputArr[0];
+  });
+
+  var maxDiff = Math.max.apply(null, diffArray);
+
+  return Math.max(maxDiff, maxProfit(inputArr.slice(1)));
 }
 
-// Elegant solution?
+// Brute Force For-loops
+
+
 
 console.log(maxProfit([45, 24, 35, 31, 40, 38, 11]));
 console.log(maxProfit([1, 2, 3, 4, 55, 6, 2, 8, 9]));
